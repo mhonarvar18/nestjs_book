@@ -73,4 +73,18 @@ export class UsersService {
     }
     return user;
   }
+
+  async findOne(email: string): Promise<User | undefined> {
+    let user;
+    try {
+      user = await this.userModel.findOne({email: email}).exec();
+      
+    } catch (error) {
+      throw new NotFoundException('Could not find user.');
+    }
+    if (!user) {
+      throw new NotFoundException('Could not find user.');
+    }
+    return user;
+  }
 }
